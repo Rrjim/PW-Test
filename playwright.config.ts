@@ -1,6 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
 import type { TestOptions } from "./test-options";
-import { argosScreenshot } from "@argos-ci/playwright";
 
 /**
  * Read environment variables from file.
@@ -39,6 +38,7 @@ export default defineConfig<TestOptions>({
         uploadToArgos: !!process.env.CI,
 
         // Set your Argos token (required if not using GitHub Actions).
+        token: "argos_58135200b428e985d216e1daccf196853f",
       },
     ],
     ["json", { outputFile: "test-results/jsonReport.json" }],
