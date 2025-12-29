@@ -1,5 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import type { TestOptions } from "./test-options";
+import { argosScreenshot } from "@argos-ci/playwright";
 
 /**
  * Read environment variables from file.
@@ -17,7 +18,7 @@ export default defineConfig<TestOptions>({
   // globalTimeout: 60000,
   expect: {
     timeout: 2000,
-    toMatchSnapshot: {maxDiffPixels: 50}
+    toMatchSnapshot: { maxDiffPixels: 50 },
   },
   // testDir: './tests', // DEFAULT VALUE CAN BE REMOVED
   /* Run tests in files in parallel */
@@ -29,15 +30,25 @@ export default defineConfig<TestOptions>({
   /* Opt out of parallel tests on CI. */
   // workers: process.env.CI ? 1 : undefined, // DEFAULT VALUE CAN BE REMOVED
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['json', {outputFile: 'test-results/jsonReport.json'}],
-  ['junit', {outputFile: 'test-results/junitReport.xml'}],
-  // ['allure-playwright'],
-  ['html']
-],
-// ALLURE SETUP
-// npm install -g allure-commandline
-// allure generate allure-results -o allure-report --clean  
+  reporter: [
+    process.env.CI ? ["dot"] : ["list"],
+        [
+      "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
 
+        // Set your Argos token (required if not using GitHub Actions).
+      },
+    ],
+    ["json", { outputFile: "test-results/jsonReport.json" }],
+    ["junit", { outputFile: "test-results/junitReport.xml" }],
+    // ['allure-playwright'],
+    ["html"],
+  ],
+  // ALLURE SETUP
+  // npm install -g allure-commandline
+  // allure generate allure-results -o allure-report --clean
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -96,11 +107,10 @@ export default defineConfig<TestOptions>({
       },
     },
   ],
-webServer: {
-  command: 'npm run start',       // your dev server
-  url: 'http://localhost:4200',
-  reuseExistingServer: true,      // attach if already running
-  timeout: 120_000,
-},
-
+  webServer: {
+    command: "npm run start", // your dev server
+    url: "http://localhost:4200",
+    reuseExistingServer: true, // attach if already running
+    timeout: 120_000,
+  },
 });
