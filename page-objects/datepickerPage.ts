@@ -50,13 +50,11 @@ export class DatepickerPage {
         .textContent();
     }
 
-await this.page
-  .locator('.day-cell.ng-star-inserted:not(.bounding-month)')
-  .getByText(expectedDate, { exact: true })
-  .click();
+    await this.page
+      .locator('.day-cell.ng-star-inserted:not(.bounding-month)')
+      .getByText(expectedDate, { exact: true })
+      .click();
 
-
-
-      return dateToAssert;
+    return dateToAssert;
   }
 }

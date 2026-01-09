@@ -15,9 +15,9 @@ test('drag and drop with iFrame', async({page, globalsQaURL}) => {
     // OR
     // more precise control
     await frame.locator('li', {hasText: "High Tatras 4"}).dragTo(frame.locator('#trash'))
-    await page.mouse.down()
-    await frame.locator('#trash').hover()
-    await page.mouse.up()
+    // await page.mouse.down()
+    // await frame.locator('#trash').hover()
+    // await page.mouse.up()
 
-    await expect(frame.locator['#trash li h5']).toHaveText(["High Tatras 2", "High Tatras 4"])
+    await expect(frame.locator('#trash li h5')).toHaveText(["High Tatras 2", "High Tatras 4"])
 })

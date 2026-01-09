@@ -90,7 +90,11 @@ export default defineConfig<TestOptions>({
       testDir: './tests/ui-tests',
       use: {
         defaultBrowserType: 'chromium'
-      }
+        ,
+        // increase action/navigation timeouts for UI tests so auto-wait doesn't fail at 5s
+        actionTimeout: 20000,
+        navigationTimeout: 20000
+        }
     },
 
     // {
@@ -116,14 +120,14 @@ export default defineConfig<TestOptions>({
     //   },
     // },
 
-    // {
-    //   name: "mobile",
-    //   testMatch: "**/testMobile.spec.ts",
-    //   use: {
-    //     browserName: "webkit",
-    //     ...devices["iPhone 15 Pro"],
-    //   },
-    // },
+    {
+      name: "mobile",
+      testMatch: "**/testMobile.spec.ts",
+      use: {
+        browserName: "webkit",
+        ...devices["iPhone 15 Pro"],
+      },
+    },
 
     {
       name: "api-testing",

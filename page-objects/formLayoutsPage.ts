@@ -9,8 +9,8 @@ export class FormLayoutsPage extends HelperBase{
 
     /**
      * This method fills out the Inline form with user details
-     * @param email  - should be first and last name
-     * @param password - valid email for the test user
+     * @param email  - should contain @ and .com
+     * @param password - valid password format
      * @param optionText - true or false if user session to be saved
      */
     async submitUsingTheGridFormWithCredentialsAndSelectOption(email: string, password: string, optionText: string) {

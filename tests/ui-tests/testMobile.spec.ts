@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test('input fields', async ({ page }, testInfo) => {
+test('mobile test', async ({ page }, testInfo) => {
   await page.goto("/");
 
   if (testInfo.project.name == 'mobile')

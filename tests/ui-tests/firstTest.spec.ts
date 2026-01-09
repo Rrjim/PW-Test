@@ -72,7 +72,7 @@ test('Locate parent elements', async ({page}) => {
     await page.locator('nb-card').filter({has: page.locator('nb-checkbox')}).filter({hasText: "Sign in"}).getByRole('textbox', {name: "Password"}).click()
 
     // use .. in an xpath to move 1 level upper
-    await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name: "Email"}).click()
+    await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name: "Email"}).fill('hello@test.com')
 
 })
 
@@ -102,6 +102,8 @@ test('Extracting values', async({page}) => {
     // all text values
     const allRadioButtonLabels = await page.locator('nb-radio').allTextContents()
     expect(allRadioButtonLabels).toContain("Option 1")
+    expect(allRadioButtonLabels).toContain("Option 2")
+
 
     // input value (JS Value)
     const emailField = basicForm.getByRole('textbox', {name: "Email"})
